@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useState, type FC } from 'react';
 
 interface UserResponse {
   name: string;
 }
+interface UsersProps {
+  onUser: (name: string) => void;
+}
 
-const Users = () => {
+const Users: FC<UsersProps> = ({ onUser }) => {
   const [users, setUsers] = useState<string[]>([]);
 
   const getUsers = async () => {
@@ -17,7 +20,11 @@ const Users = () => {
     <div>
       <h2>Users</h2>
       {users.map((name) => {
-        return <p key={name}>{name}</p>;
+        return (
+          <p key={name} onClick={() => onUser(name)}>
+            {name}
+          </p>
+        );
       })}
       <button onClick={getUsers}>Get Users</button>
     </div>

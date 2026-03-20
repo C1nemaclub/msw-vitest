@@ -25,4 +25,4 @@ jobs:
         run: npm install # Command to install project dependencies
 
       - name: Run Tests
-        run: npm test:headless # Command to execute your tests (often defined in your package.json)
+        run: npm run test:headless # Command to execute your tests (often defined in your package.json)

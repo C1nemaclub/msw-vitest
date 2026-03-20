@@ -10,7 +10,7 @@ export default mergeConfig(
       setupFiles: './tests/setup.ts',
       browser: {
         enabled: true,
-        headless: true,
+        headless: false,
         provider: playwright(),
         instances: [{ browser: 'chromium' }],
       },

@@ -20,11 +20,10 @@
 
 //Worker
 import { cleanup } from '@testing-library/react';
-import { setupWorker } from 'msw/browser';
 import { afterAll, afterEach, beforeAll } from 'vitest';
-import { handlers } from './handlers';
+import { worker } from './browser';
 
-export const worker = setupWorker(...handlers);
+// export const worker = setupWorker(...handlers);
 
 afterEach(() => {
   cleanup();

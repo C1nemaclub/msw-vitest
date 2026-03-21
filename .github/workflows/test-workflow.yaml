@@ -35,4 +35,4 @@ jobs:
         if: failure()
         with:
           name: vitest-failure-screenshots
-          pat: .vitest-attachments
+          path: .vitest-attachments

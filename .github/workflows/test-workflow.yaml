@@ -29,3 +29,10 @@ jobs:
 
       - name: Run Tests
         run: npm run test:headless # Command to execute your tests (often defined in your package.json)
+
+      - name: Upload failure screenshots
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: vitest-failure-screenshots
+          pat: .vitest-attachments

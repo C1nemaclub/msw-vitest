@@ -7,13 +7,34 @@ export default mergeConfig(
   defineConfig({
     test: {
       environment: 'jsdom',
-      setupFiles: './tests/setup.ts',
-      browser: {
-        enabled: true,
-        headless: false,
-        provider: playwright(),
-        instances: [{ browser: 'chromium' }],
-      },
+      projects: [
+        {
+          extends: true,
+          test: {
+            name: 'workers',
+            setupFiles: './tests/setup.ts',
+            browser: {
+              enabled: true,
+              headless: false,
+              provider: playwright(),
+              instances: [{ browser: 'chromium' }],
+            },
+          },
+        },
+        {
+          extends: true,
+          test: {
+            name: 'server',
+            setupFiles: './tests/server-setup.ts',
+            browser: {
+              enabled: true,
+              headless: true,
+              provider: playwright(),
+              instances: [{ browser: 'chromium' }],
+            },
+          },
+        },
+      ],
     },
   }),
 );

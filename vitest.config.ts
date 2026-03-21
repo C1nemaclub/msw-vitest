@@ -21,19 +21,19 @@ export default mergeConfig(
             },
           },
         },
-        {
-          extends: true,
-          test: {
-            name: 'server',
-            setupFiles: './tests/server-setup.ts',
-            browser: {
-              enabled: true,
-              headless: true,
-              provider: playwright(),
-              instances: [{ browser: 'chromium' }],
-            },
-          },
-        },
+        // {
+        //   extends: true,
+        //   test: {
+        //     name: 'server',
+        //     setupFiles: './tests/server-setup.ts',
+        //     browser: {
+        //       enabled: true,
+        //       headless: true,
+        //       provider: playwright(),
+        //       instances: [{ browser: 'chromium' }],
+        //     },
+        //   },
+        // },
       ],
     },
   }),

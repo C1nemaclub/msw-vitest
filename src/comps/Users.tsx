@@ -1,8 +1,6 @@
 import { useState, type FC } from 'react';
+import useGetUsers from './useGetUsers';
 
-interface UserResponse {
-  name: string;
-}
 interface UsersProps {
   onUser: (name: string) => void;
 }
@@ -10,9 +8,10 @@ interface UsersProps {
 const Users: FC<UsersProps> = ({ onUser }) => {
   const [users, setUsers] = useState<string[]>([]);
 
+  const { pullUsers } = useGetUsers();
+
   const getUsers = async () => {
-    const response = await fetch('https://jsonplaceholder.typicode.com/users');
-    const data = (await response.json()) as UserResponse[];
+    const data = await pullUsers();
     setUsers(data.map(({ name }) => name));
   };
 

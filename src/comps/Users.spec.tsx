@@ -5,6 +5,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { test } from '../../tests/test-extend';
 // import {test as mwsTest } from "../../tests/msw-extend"
 
+import { TestWrapper } from '../tests/test-wrapper';
 import Users from './Users';
 
 describe('Users', () => {
@@ -67,7 +68,7 @@ describe('Users', () => {
       }),
     );
     const mockFn = vi.fn();
-    render(<Users onUser={mockFn} />);
+    render(<Users onUser={mockFn} />, { wrapper: TestWrapper });
     const user = userEvent.setup();
 
     const getUsersBtn = screen.getByRole('button', { name: /get users/i });
@@ -75,7 +76,7 @@ describe('Users', () => {
     const users: HTMLParagraphElement[] =
       await screen.findAllByRole('paragraph');
 
-    const samUser = await screen.findByText(/sammo/i);
+    const samUser = await screen.findByText(/sammy/i);
     await user.click(samUser);
     expect(mockFn).toHaveBeenCalledWith('sammy');
     expect(users.length).toBe(2);

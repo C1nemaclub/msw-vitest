@@ -82,7 +82,7 @@ describe('Users', () => {
     expect(users.length).toBe(2);
   });
 
-  test('Should retrieve users 3', async ({ worker }) => {
+  test('Should select user', async ({ worker }) => {
     worker.use(
       http.get('https://jsonplaceholder.typicode.com/users', () => {
         return HttpResponse.json([{ name: 'alice' }, { name: 'eve' }]);
@@ -97,7 +97,10 @@ describe('Users', () => {
     const users: HTMLParagraphElement[] =
       await screen.findAllByRole('paragraph');
 
-    const selectedUser = await screen.findByText(/eve/i);
+    const combobox = screen.getByRole('combobox');
+    await user.click(combobox);
+
+    const selectedUser = await screen.findByRole('option', { name: /eve/i });
     await user.click(selectedUser);
     expect(mockFn).toHaveBeenCalledWith('eve');
     expect(users.length).toBe(2);

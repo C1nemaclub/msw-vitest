@@ -12,6 +12,9 @@
     "test:headless": "vitest --browser.headless"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/material": "^7.3.9",
     "@tanstack/react-query": "^5.94.5",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",

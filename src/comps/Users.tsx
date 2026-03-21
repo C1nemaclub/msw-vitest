@@ -1,8 +1,10 @@
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
 import { useState, type FC } from 'react';
 import useGetUsers from './useGetUsers';
 
 interface UsersProps {
-  onUser: (name: string) => void;
+  onUser: (name: string | null) => void;
 }
 
 const Users: FC<UsersProps> = ({ onUser }) => {
@@ -25,6 +27,15 @@ const Users: FC<UsersProps> = ({ onUser }) => {
           </p>
         );
       })}
+      <Autocomplete
+        fullWidth
+        size='small'
+        options={users}
+        onChange={(_, user) => onUser(user)}
+        renderInput={(params) => {
+          return <TextField {...params} />;
+        }}
+      />
       <button onClick={getUsers}>Get Users</button>
     </div>
   );

@@ -81,4 +81,25 @@ describe('Users', () => {
     expect(mockFn).toHaveBeenCalledWith('sammy');
     expect(users.length).toBe(2);
   });
+
+  test('Should retrieve users 3', async ({ worker }) => {
+    worker.use(
+      http.get('https://jsonplaceholder.typicode.com/users', () => {
+        return HttpResponse.json([{ name: 'alice' }, { name: 'eve' }]);
+      }),
+    );
+    const mockFn = vi.fn();
+    render(<Users onUser={mockFn} />, { wrapper: TestWrapper });
+    const user = userEvent.setup();
+
+    const getUsersBtn = screen.getByRole('button', { name: /get users/i });
+    await user.click(getUsersBtn);
+    const users: HTMLParagraphElement[] =
+      await screen.findAllByRole('paragraph');
+
+    const selectedUser = await screen.findByText(/eve/i);
+    await user.click(selectedUser);
+    expect(mockFn).toHaveBeenCalledWith('eve');
+    expect(users.length).toBe(2);
+  });
 });

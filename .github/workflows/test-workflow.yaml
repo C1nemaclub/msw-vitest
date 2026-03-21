@@ -1,4 +1,4 @@
-name: Run Tests # Name of your workflow
+name: Run Tests
 
 on:
   push:
@@ -10,29 +10,36 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest # Specifies the operating system runner
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4 # Action to check out your repository code
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Specify the version of Node.js
+          node-version: '20'
 
       - name: Install Dependencies
-        run: npm install # Command to install project dependencies
+        run: npm install
 
-      - name: Install playwright
-        run: npx playwright install
+      - name: Install Playwright
+        run: npx playwright install --with-deps
 
       - name: Run Tests
-        run: npm run test:headless # Command to execute your tests (often defined in your package.json)
+        id: run_tests
+        run: npm run test:headless
+        continue-on-error: true
 
       - name: Upload failure screenshots
+        if: always()
         uses: actions/upload-artifact@v4
-        if: failure()
         with:
           name: vitest-failure-screenshots
           path: .vitest-attachments
+          if-no-files-found: ignore
+
+      - name: Fail job if tests failed
+        if: steps.run_tests.outcome == 'failure'
+        run: exit 1

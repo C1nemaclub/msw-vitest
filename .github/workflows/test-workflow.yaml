@@ -32,10 +32,15 @@ jobs:
         run: npm run test:headless
         continue-on-error: true
 
+      - name: Debug Files
+        run: |
+          pwd
+          ls -la
+
       - uses: actions/upload-artifact@v4
         with:
           name: Upload Screenshots
-          path: .vitest-attachments
+          path: '**/.vitest-attachments/**'
           if-no-files-found: ignore
           retention-days: 1
 

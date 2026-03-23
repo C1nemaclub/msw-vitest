@@ -20,6 +20,7 @@ export default mergeConfig(
               instances: [{ browser: 'chromium' }],
               screenshotFailures: true,
             },
+            attachmentsDir: 'failed-test',
           },
         },
         // {

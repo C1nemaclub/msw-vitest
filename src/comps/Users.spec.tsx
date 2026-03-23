@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { http, HttpResponse } from 'msw';
 import { describe, expect, it, vi } from 'vitest';
@@ -104,5 +104,27 @@ describe('Users', () => {
     await user.click(selectedUser);
     expect(mockFn).toHaveBeenCalledWith('eve');
     expect(users.length).toBe(2);
+  });
+
+  test('Should save the user', async ({ worker }) => {
+    const user = userEvent.setup();
+    const requestSpy = vi.fn();
+    worker.use(
+      http.post(
+        'https://jsonplaceholder.typicode.com/users',
+        async ({ request }) => {
+          const body = await request.json();
+          requestSpy(body);
+          return HttpResponse.json({ id: '100' });
+        },
+      ),
+    );
+    render(<Users onUser={() => {}} />, { wrapper: TestWrapper });
+    const saveButton = screen.getByRole('button', { name: /save user/i });
+    await user.click(saveButton);
+    await waitFor(() => {
+      expect(requestSpy).toHaveBeenCalledTimes(1);
+      expect(requestSpy).toHaveBeenCalledWith({ name: 'Sam' });
+    });
   });
 });

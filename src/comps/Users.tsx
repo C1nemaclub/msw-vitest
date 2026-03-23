@@ -17,8 +17,19 @@ const Users: FC<UsersProps> = ({ onUser }) => {
     setUsers(data.map(({ name }) => name));
   };
 
+  const saveUser = async () => {
+    await fetch('https://jsonplaceholder.typicode.com/users', {
+      method: 'POST',
+      body: JSON.stringify({ name: 'Sam' }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  };
+
   return (
     <div>
+      <button onClick={saveUser}>Save User</button>
       <h2>Users</h2>
       {users.map((name) => {
         return (

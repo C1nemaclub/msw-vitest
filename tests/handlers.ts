@@ -1,16 +1,8 @@
 export const handlers = [
-  // http.get('https://jsonplaceholder.typicode.com/users', () => {
-  //   return HttpResponse.json([
-  //     { name: 'alice' },
-  //     { name: 'bob' },
-  //     { name: 'charlie' },
-  //     { name: 'diana' },
-  //     { name: 'eve' },
-  //     { name: 'frank' },
-  //     { name: 'grace' },
-  //     { name: 'henry' },
-  //     { name: 'iris' },
-  //     { name: 'jack' },
-  //   ]);
-  // }),
+  // http.post(
+  //   'https://jsonplaceholder.typicode.com/users',
+  //   async ({ request }) => {
+  //     return HttpResponse.json({ id: '100' });
+  //   },
+  // ),
 ];
